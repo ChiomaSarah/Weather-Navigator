@@ -1,10 +1,10 @@
-import axios from "axios";
+import axiosReq from "../customHook/axiosInterceptor";
 
 const GetWeather = async (query) => {
   const url = process.env.REACT_APP_WEATHER_URL;
   const API_KEY = process.env.REACT_APP_API_KEY;
 
-  const { data } = await axios.get(url, {
+  const { data } = await axiosReq.get(url, {
     params: {
       q: query,
       units: "metric",

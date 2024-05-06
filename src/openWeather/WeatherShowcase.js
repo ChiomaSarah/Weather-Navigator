@@ -4,15 +4,25 @@ import GetWeather from "./GetWeather";
 const WeatherShowcase = () => {
   const [query, setQuery] = useState("");
   const [weather, setWeather] = useState({});
+  const [error, setError] = useState(null); // State to store error message
 
   const search = async (e) => {
     if (e.key === "Enter") {
-      const data = await GetWeather(query);
-      setWeather(data);
-      console.log(data);
-      setQuery("");
+      try {
+        const data = await GetWeather(query);
+        setWeather(data);
+        setQuery("");
+        setError(null);
+      } catch (error) {
+        const capitalizedError =
+          error.charAt(0).toUpperCase() + error.slice(1) + "!";
+
+        setError(capitalizedError);
+        console.log("Error state:", error);
+      }
     }
   };
+
   return (
     <div className="main-container">
       <input
@@ -25,6 +35,11 @@ const WeatherShowcase = () => {
         }}
         onKeyDown={search}
       />
+      {error && (
+        <div className="alert alert-danger" role="alert">
+          {error}
+        </div>
+      )}{" "}
       {weather.main && (
         <div className="city">
           <h2 className="city-name">
