@@ -28,7 +28,7 @@ const WeatherShowcase = () => {
       <input
         type="text"
         className="search"
-        placeholder="Search..."
+        placeholder="Search City..."
         value={query}
         onChange={(e) => {
           setQuery(e.target.value);
